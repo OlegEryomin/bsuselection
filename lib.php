@@ -66,7 +66,7 @@ function bsuselection_add_instance($moduleinstance, $mform = null)
                 'bsuselectionid' => $id,
                 'quizid' => $moduleinstance->quiz[$i],
                 'text' => $moduleinstance->namevalue[$i],
-                'maxgrade' => $moduleinstance->maxball[$i],
+                'maxgrade' => $moduleinstance->maxgrade[$i],
                 'timemodified' => time()
             ]);
     }
@@ -91,6 +91,16 @@ function bsuselection_update_instance($moduleinstance, $mform = null)
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
 
+    for ($i = 0; $i < count($moduleinstance->namevalue); $i++) {
+        $DB->update_record('bsuselection_options',
+            (object)[
+                'id' => $moduleinstance->optionid[$i],
+                'quizid' => $moduleinstance->quiz[$i],
+                'text' => $moduleinstance->namevalue[$i],
+                'maxgrade' => $moduleinstance->maxgrade[$i],
+                'timemodified' => time()
+            ]);
+    }
 
     return $DB->update_record('bsuselection', $moduleinstance);
 }
