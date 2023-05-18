@@ -1,8 +1,16 @@
-# Selection level foreign language #
+# Survey based on completed tests #
+Moodle plugin mod choice based on quiz
 
-TODO Describe the plugin shortly here.
+Плагин добавляет эллемент курса, который позволяет провести опрос
+на основе пройденных студентами тестов.
 
-TODO Provide more detailed description here.
+Пример: существует 3 теста на определения уровня владения иностранным языком
+![image](https://github.com/OlegEryomin/bsuselection/assets/39495665/ed705150-790d-4347-a866-e9141c18de6b)
+студент проходит эти тесты и на основе набранных баллов, по заданным ограничениям может выбрать уровень, на котором он желает обучаться
+![image](https://github.com/OlegEryomin/bsuselection/assets/39495665/7facc045-e5a9-43af-8616-ef751ef40790)
+Настройка планина
+<img width="1552" alt="Снимок экрана 2023-05-18 в 09 21 17" src="https://github.com/OlegEryomin/bsuselection/assets/39495665/2ae2f59e-f600-4db4-a52a-9d26f114d414">
+
 
 ## License ##
 
