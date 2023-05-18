@@ -129,18 +129,31 @@ function bsuselection_delete_instance($id)
 function bsuselection_cm_info_view(\cm_info $cm)
 {
 
-    global $OUTPUT;
+    global $OUTPUT, $DB;
+
+    $options = $DB->get_records('bsuselection_options', ['bsuselectionid' =>$cm->instance], 'id',
+    'id,text,maxgrade,quizid');
 
     $data =
         [
-            'header' => 'Выберите уровень'
+            'header' => 'Выберите уровень',
+            'options' => array_values($options)
         ];
 
     $cm->set_content($OUTPUT->render_from_template('mod_bsuselection/selection', $data));
 }
 
-
-function get_bsuselectionid()
+function get_quiz($courseid)
 {
+    $mods = get_course_mods($courseid);
 
+    foreach ($mods as $mod) {
+        if ($mod->modname == 'quiz') {
+            $quiz = get_coursemodule_from_id('quiz', $mod->id);
+            $quiznames[$quiz->id] = $quiz->name;
+        }
+    }
+
+    return $quiznames;
 }
+

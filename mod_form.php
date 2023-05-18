@@ -71,13 +71,15 @@ class mod_bsuselection_mod_form extends moodleform_mod
         //-------------------------------------------------------------------------------
         $mform->addElement('header', 'bsuselectionfieldset', get_string('bsuselectionfieldset', 'bsuselection'));
 
+        $course = $this->_course;
+        $quiz = get_quiz($course->id);
         $repeatarray = array();
         $repeatarray[] = $mform->createElement('text', 'namevalue', get_string('namevalue', 'bsuselection'));
-        $repeatarray[] = $mform->createElement('select', 'quiz', get_string('quiz', 'bsuselection'), $this->get_quiz());
+        $repeatarray[] = $mform->createElement('select', 'quiz', get_string('quiz', 'bsuselection'), $quiz);
         $repeatarray[] = $mform->createElement('text', 'maxgrade', get_string('maxball', 'bsuselection'));
         $repeatarray[] = $mform->createElement('hidden', 'optionid', 0);
 
-        $this->repeat_elements($repeatarray, count($this->get_quiz()),
+        $this->repeat_elements($repeatarray, count($quiz),
             null, 'bsuselection_repeats', 'bsuselection_add_fields', 3, null, true);
 
         // Add standard elements.
@@ -101,20 +103,5 @@ class mod_bsuselection_mod_form extends moodleform_mod
             $default_values['optionid[' . $key . ']'] = $options[$value]->id;
         }
 
-    }
-
-    function get_quiz()
-    {
-        $course = $this->get_course();
-        $mods = get_course_mods($course->id);
-
-        foreach ($mods as $mod) {
-            if ($mod->modname == 'quiz') {
-                $quiz = get_coursemodule_from_id('quiz', $mod->id);
-                $quiznames[$quiz->id] = $quiz->name;
-            }
-        }
-
-        return $quiznames;
     }
 }

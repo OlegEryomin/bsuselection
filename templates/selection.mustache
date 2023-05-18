@@ -1,21 +1,13 @@
 <div class="container">
     <h2>{{header}}</h2>
     <form action="/action_page.php">
-        <div class="form-check">
-            <label class="form-check-label" for="radio1">
-                <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1">A1 (Beginner)
-            </label>
-        </div>
-        <div class="form-check">
-            <label class="form-check-label" for="radio2">
-                <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">A2 (Elementary)
-            </label>
-        </div>
-        <div class="form-check">
-            <label class="form-check-label">
-                <input type="radio" class="form-check-input" disabled>B1 (Intermediate)
-            </label>
-        </div>
+        {{#options}}
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input">{{text}}
+                </label>
+            </div>
+        {{/options}}
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
 </div>
