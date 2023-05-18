@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/course/moodleform_mod.php');
+require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
 /**
  * Module instance settings form.
@@ -33,12 +33,14 @@ require_once($CFG->dirroot.'/course/moodleform_mod.php');
  * @copyright  Eryomin Oleg eremin_o@bsu.edu.ru Belgorod State University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_bsuselection_mod_form extends moodleform_mod {
+class mod_bsuselection_mod_form extends moodleform_mod
+{
 
     /**
      * Defines forms elements
      */
-    public function definition() {
+    public function definition()
+    {
         global $CFG;
 
         $mform = $this->_form;
@@ -85,30 +87,31 @@ class mod_bsuselection_mod_form extends moodleform_mod {
         $this->add_action_buttons();
     }
 
-    function data_preprocessing(&$default_values){
+    function data_preprocessing(&$default_values)
+    {
         global $DB;
 
         $options = $DB->get_records('bsuselection_options', ['bsuselectionid' => $this->_instance], 'id',
             'id, text, quizid, maxgrade');
 
-        foreach ($options as $key => $value){
-            $key = $key - 1;
-            $default_values['namevalue['. $key .']'] = $value->text;
-            $default_values['quiz['. $key .']'] = $value->quizid;
-            $default_values['maxgrade['. $key .']'] = $value->maxgrade;
-            $default_values['optionid['. $key .']'] = $value->id;
+        foreach (array_keys($options) as $key => $value) {
+            $default_values['namevalue[' . $key . ']'] = $options[$value]->text;
+            $default_values['quiz[' . $key . ']'] = $options[$value]->quizid;
+            $default_values['maxgrade[' . $key . ']'] = $options[$value]->maxgrade;
+            $default_values['optionid[' . $key . ']'] = $options[$value]->id;
         }
 
     }
 
-    function get_quiz(){
+    function get_quiz()
+    {
         $course = $this->get_course();
         $mods = get_course_mods($course->id);
 
-        foreach ($mods as $mod){
-            if ($mod->modname == 'quiz'){
+        foreach ($mods as $mod) {
+            if ($mod->modname == 'quiz') {
                 $quiz = get_coursemodule_from_id('quiz', $mod->id);
-                $quiznames[$quiz->id] =  $quiz->name;
+                $quiznames[$quiz->id] = $quiz->name;
             }
         }
 

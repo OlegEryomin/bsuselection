@@ -121,6 +121,7 @@ function bsuselection_delete_instance($id)
     }
 
     $DB->delete_records('bsuselection', array('id' => $id));
+    $DB->delete_records('bsuselection_options', array('bsuselectionid' => $id));
 
     return true;
 }
