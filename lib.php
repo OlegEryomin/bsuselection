@@ -129,14 +129,17 @@ function bsuselection_delete_instance($id)
 function bsuselection_cm_info_view(\cm_info $cm)
 {
 
-    global $OUTPUT, $DB;
+    global $OUTPUT, $DB, $USER;
 
     $options = $DB->get_records('bsuselection_options', ['bsuselectionid' =>$cm->instance], 'id',
     'id,text,maxgrade,quizid');
-
+    $exist = !$DB->record_exists('bsuselection_attempts', ['bsuselectionid' => $cm->instance, 'userid' => $USER->id]);
     $data =
         [
             'header' => 'Выберите уровень',
+            'courseid' => $cm->course,
+            'selectionid' => $cm->instance,
+            'exist' => $exist,
             'options' => array_values($options)
         ];
 

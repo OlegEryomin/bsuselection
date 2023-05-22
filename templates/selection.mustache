@@ -1,13 +1,17 @@
+{{#exist}}
 <div class="container">
     <h2>{{header}}</h2>
-    <form action="/action_page.php">
+    <form action="/mod/bsuselection/index.php" method="post">
+        <input type="hidden" name="id" value="{{courseid}}">
+        <input type="hidden" name="selectionid" value="{{selectionid}}">
         {{#options}}
             <div class="form-check">
                 <label class="form-check-label">
-                    <input type="radio" class="form-check-input">{{text}}
+                    <input type="radio" class="form-check-input" name="option" value="{{id}}">{{text}}
                 </label>
             </div>
         {{/options}}
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
 </div>
+{{/exist}}

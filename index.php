@@ -25,8 +25,20 @@
 require_once("../../config.php");
 require_once("lib.php");
 
-$id = required_param('id',PARAM_INT);   // course
+$id = required_param('id', PARAM_INT);   // course
+$option = required_param('option', PARAM_INT);
+$selectionid = required_param('selectionid', PARAM_INT);
 
-$PAGE->set_url('/mod/bsuselection/index.php', array('id'=>$id));
+global $PAGE, $CFG, $DB, $USER;
+
+$PAGE->set_url('/mod/bsuselection/index.php', array('id' => $id));
+
+$DB->insert_record('bsuselection_attempts',
+    (object)[
+        'bsuselectionid' => $selectionid,
+        'bsuselectionoptionsid' => $option,
+        'userid' => $USER->id,
+        'timemodified' => time()
+    ]);
 
 redirect("$CFG->wwwroot/course/view.php?id=$id");
