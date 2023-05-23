@@ -1,17 +1,17 @@
 {{#exist}}
 <div class="container">
     <h2>{{header}}</h2>
-    <form action="/mod/bsuselection/index.php" method="post">
+    <form action="{{action}}" method="post">
         <input type="hidden" name="id" value="{{courseid}}">
         <input type="hidden" name="selectionid" value="{{selectionid}}">
         {{#options}}
             <div class="form-check">
                 <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="option" value="{{id}}">{{text}}
+                    <input type="radio" class="form-check-input" name="option" value="{{id}}" {{#radiodis}}disabled{{/radiodis}}>{{text}}
                 </label>
             </div>
         {{/options}}
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="submit" class="btn btn-primary" {{#butdis}}disabled{{/butdis}}>Сохранить</button>
     </form>
 </div>
 {{/exist}}

@@ -129,17 +129,32 @@ function bsuselection_delete_instance($id)
 function bsuselection_cm_info_view(\cm_info $cm)
 {
 
-    global $OUTPUT, $DB, $USER;
+    global $OUTPUT, $DB, $USER, $CFG;
 
     $options = $DB->get_records('bsuselection_options', ['bsuselectionid' =>$cm->instance], 'id',
     'id,text,maxgrade,quizid');
+
+    $butdis = 1;
+    foreach ($options as $key => $value){
+        $grades = $DB->get_records_menu('quiz_grades',  ['quiz' => $value->quizid, 'userid' => $USER->id], 'grade', 'id,grade');
+        if ($value->maxgrade >= max($grades)){
+            $options[$key]->radiodis = 1;
+        }else{
+            $options[$key]->radiodis = 0;
+            $butdis = 0;
+        }
+
+    }
+
     $exist = !$DB->record_exists('bsuselection_attempts', ['bsuselectionid' => $cm->instance, 'userid' => $USER->id]);
     $data =
         [
             'header' => 'Выберите уровень',
+            'action' => "$CFG->wwwroot/mod/bsuselection/index.php",
             'courseid' => $cm->course,
             'selectionid' => $cm->instance,
             'exist' => $exist,
+            'butdis' => $butdis,
             'options' => array_values($options)
         ];
 
@@ -153,7 +168,7 @@ function get_quiz($courseid)
     foreach ($mods as $mod) {
         if ($mod->modname == 'quiz') {
             $quiz = get_coursemodule_from_id('quiz', $mod->id);
-            $quiznames[$quiz->id] = $quiz->name;
+            $quiznames[$quiz->instance] = $quiz->name;
         }
     }
 
