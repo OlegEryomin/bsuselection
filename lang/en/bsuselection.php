@@ -25,12 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Selection level foreign language';
-$string['modulename'] = 'Selection level foreign language';
-$string['pluginadministration'] = 'Choice administration';
-$string['bsuselectionname'] = 'Header';
-$string['bsuselectionfieldset'] = 'Test on choice';
-$string['allowupdate'] = 'Allow choice to be updated';
-$string['namevalue'] = 'Name value';
+$string['pluginname'] = 'Survey based on completed tests';
+$string['modulename'] = 'Survey based on completed tests';
+$string['pluginadministration'] = 'Survey Management';
+$string['bsuselectionname'] = 'Survey title';
+$string['bsuselectionfieldset'] = 'Variants';
+$string['namevalue'] = 'Name of the response option';
 $string['quiz'] = 'Test';
-$string['maxball'] = 'Minimum ball';
+$string['maxball'] = 'Minimum score for selection';

@@ -146,10 +146,12 @@ function bsuselection_cm_info_view(\cm_info $cm)
 
     }
 
+    $header = $DB->get_field('bsuselection', 'name', ['id' => $cm->instance]);
+
     $exist = !$DB->record_exists('bsuselection_attempts', ['bsuselectionid' => $cm->instance, 'userid' => $USER->id]);
     $data =
         [
-            'header' => 'Выберите уровень',
+            'header' => $header,
             'action' => "$CFG->wwwroot/mod/bsuselection/index.php",
             'courseid' => $cm->course,
             'selectionid' => $cm->instance,
