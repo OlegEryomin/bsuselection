@@ -137,10 +137,10 @@ function bsuselection_cm_info_view(\cm_info $cm)
     $butdis = 1;
     foreach ($options as $key => $value){
         $grades = $DB->get_records_menu('quiz_grades',  ['quiz' => $value->quizid, 'userid' => $USER->id], 'grade', 'id,grade');
-        if ($value->maxgrade >= max($grades)){
-            $options[$key]->radiodis = 1;
-        }else{
+        if (max($grades) >=  $value->maxgrade){
             $options[$key]->radiodis = 0;
+        }else{
+            $options[$key]->radiodis = 1;
             $butdis = 0;
         }
 
